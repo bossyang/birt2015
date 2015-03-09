@@ -7,7 +7,7 @@
     <property name="imageDPI">96</property>
     <parameters>
         <scalar-parameter name="pWarehouse" id="50">
-            <text-property name="promptText">選擇倉庫：</text-property>
+            <text-property name="promptText">Display products for this warehouse</text-property>
             <property name="valueType">dynamic</property>
             <property name="isRequired">true</property>
             <property name="dataSetName">dsWarehouse</property>
@@ -30,12 +30,12 @@
             </structure>
         </scalar-parameter>
         <scalar-parameter name="pQuantityInStock" id="51">
-            <text-property name="promptText">Display quantity under value</text-property>
+            <text-property name="promptText">Display products whose quantity in stock is less than or equal to this number</text-property>
             <property name="valueType">static</property>
             <property name="dataType">integer</property>
             <property name="distinct">true</property>
             <simple-property-list name="defaultValue">
-                <value type="constant">100</value>
+                <value type="constant">500</value>
             </simple-property-list>
             <list-property name="selectionList"/>
             <property name="paramType">simple</property>
@@ -323,7 +323,7 @@ AND locations.country_id = countries.country_id]]></xml-property>
 FROM inventories
 INNER JOIN product_information ON inventories.product_id = product_information.product_id
 WHERE inventories.warehouse_id = ? 
-  AND inventories.quantity_on_hand < ?]]></xml-property>
+  AND inventories.quantity_on_hand <= ?]]></xml-property>
         </oda-data-set>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="dsCountries" id="32">
             <list-property name="columnHints">
