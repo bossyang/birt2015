@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="author">Boss Yang</property>
-    <property name="createdBy">Eclipse BIRT Designer Version 4.3.2.v20140211-1400 Build &lt;4.3.2.v20140218-1056></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.4.2.v201410272105 Build &lt;4.4.2.v20150217-1805></property>
     <text-property name="title">Address Book</text-property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -9,7 +9,7 @@
     <property name="bidiLayoutOrientation">ltr</property>
     <property name="imageDPI">96</property>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="My ORCL" id="8">
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="dbORCL" id="8">
             <text-property name="displayName">Order Entry - Oracle Sample Database</text-property>
             <list-property name="privateDriverProperties">
                 <ex-property>
@@ -32,12 +32,12 @@
             <property name="odaUser">oe</property>
             <encrypted-property name="odaPassword" encryptionID="base64">cGFzc3dvcmQ=</encrypted-property>
             <property name="odaJndiName">java:comp/env/jdbc/orcl</property>
-            <property name="OdaConnProfileName">My ORCL</property>
+            <property name="OdaConnProfileName">dbORCL</property>
             <property name="OdaConnProfileStorePath">ServerProfile.dat</property>
         </oda-data-source>
     </data-sources>
     <data-sets>
-        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="EmployeeData" id="9">
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="dsEmployee" id="9">
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">FIRST_NAME</property>
@@ -104,7 +104,7 @@
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">My ORCL</property>
+            <property name="dataSource">dbORCL</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -383,7 +383,7 @@ San Francisco, CA 94107 <BR>
             </row>
         </grid>
         <table id="11">
-            <property name="dataSet">EmployeeData</property>
+            <property name="dataSet">dsEmployee</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">FIRST_NAME</property>
@@ -423,15 +423,9 @@ San Francisco, CA 94107 <BR>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">LINE_NUM</property>
-                    <expression name="expression" type="javascript">row.__rownum</expression>
-                    <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
-                </structure>
-                <structure>
-                    <property name="name">Column Binding</property>
+                    <property name="name">datRowNum</property>
                     <expression name="expression" type="javascript">row.__rownum + 1</expression>
-                    <property name="dataType">string</property>
+                    <property name="dataType">integer</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
@@ -491,10 +485,8 @@ San Francisco, CA 94107 <BR>
             <detail>
                 <row id="18">
                     <cell id="59">
-                        <data id="62">
-                            <property name="paddingLeft">1pt</property>
-                            <property name="textAlign">center</property>
-                            <property name="resultSetColumn">Column Binding</property>
+                        <data id="64">
+                            <property name="resultSetColumn">datRowNum</property>
                         </data>
                     </cell>
                     <cell id="20">
